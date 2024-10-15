@@ -2,11 +2,13 @@
 
 namespace backend\controllers;
 
+use common\models\ExtraPhone;
 use common\models\Students;
 use common\models\search\StudentsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * StudentsController implements the CRUD actions for Students model.
@@ -57,6 +59,7 @@ class StudentsController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'phones' => ExtraPhone::find()->where(['student_id' => $id])->all(),
         ]);
     }
 
@@ -70,7 +73,16 @@ class StudentsController extends Controller
         $model = new Students();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                $files = UploadedFile::getInstance($model, 'imageFile');
+                $uploads = \common\models\UploadsImage::uploadImage($model, $files, 'students');
+                $model->created = time();
+                $model->user_id = \Yii::$app->user->identity->id;
+                $model->status = 0;
+                if ($uploads) {
+                    $model->image = $uploads;
+                    $model->save();
+                }
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -100,6 +112,20 @@ class StudentsController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    public function actionAddPhone($student_id)
+    {
+        $model = new ExtraPhone();
+        if (\Yii::$app->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $model->student_id = $student_id;
+                $model->created = time();
+                $model->status = 0;
+                $model->save();
+            }
+        }
+        return $this->redirect(['view', 'id' => $model->student_id]);
     }
 
     /**

@@ -12,6 +12,8 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'name'=>'СКУД Контроллер',
+    'language' => 'ru',
+    'timeZone' => 'Asia/Tashkent',
     'modules' => [],
     'components' => [
         'request' => [

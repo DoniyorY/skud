@@ -40,7 +40,7 @@ class CompanyController extends Controller
     {
         $searchModel = new CompanySearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
+        if ($this->request->isPost) $this->actionCreate();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -70,6 +70,8 @@ class CompanyController extends Controller
         $model = new Company();
 
         if ($this->request->isPost) {
+            $model->created=time();
+            $model->status=0;
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }

@@ -38,6 +38,7 @@ AppAsset::register($this);
         $menuItems = [
             ['label' => 'Студенты', 'url' => ['/students/index']],
             ['label' => 'Посещаемость', 'url' => ['/visit-log/index']],
+            ['label' => 'Компания', 'url' => ['/company/index']],
             ['label' => 'Пользователи', 'url' => ['/user/index']],
         ];
         if (Yii::$app->user->isGuest) {
@@ -61,8 +62,8 @@ AppAsset::register($this);
         ?>
     </header>
 
-    <main role="main" class="flex-shrink-0">
-        <div class="container">
+    <main role="main" class="flex-shrink-0 mt-5">
+        <div class="container-fluid mt-5">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>

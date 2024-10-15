@@ -11,29 +11,32 @@ use yii\widgets\ActiveForm;
 <div class="students-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <div class="row">
+        <div class="col-md-3">
+            <?= $form->field($model, 'fullname')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-3">
+            <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-3">
+            <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-3">
+            <?= $form->field($model, 'company_id')->textInput() ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'mother_name')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= $form->field($model, 'father_name')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-4 mt-4">
+            <?= $form->field($model, 'imageFile')->fileInput(['maxlength' => true]) ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'fullname')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'created')->textInput() ?>
-
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'mother_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'father_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'company_id')->textInput() ?>
-
-    <?= $form->field($model, 'user_id')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <div class="form-group mt-2">
+        <?= Html::submitButton('Добавить', ['class' => ' w-100 btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
