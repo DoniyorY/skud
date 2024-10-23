@@ -56,6 +56,12 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            ['username', 'trim'],
+            ['username', 'required'],
+            ['username', 'string', 'max' => 255],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            [['role_id', 'company_id'], 'integer'],
+            [['role_id', 'company_id'], 'required'],
         ];
     }
 
@@ -221,7 +227,7 @@ class User extends ActiveRecord implements IdentityInterface
             'created_at' => 'Дата создания',
             'updated_at' => 'Дата обновления',
             'company_id' => 'Компания',
-            'password_hash'=>'Пароль'
+            'password_hash' => 'Пароль'
         ];
     }
 

@@ -39,9 +39,10 @@ class UserController extends Controller
     public function actionIndex()
     {
         $searchModel = new UserSearch();
+        $model = new User();
         $dataProvider = $searchModel->search($this->request->queryParams);
         if ($this->request->isPost) {
-            $model = new User();
+
             $user = $_POST['User'];
             if ($model->load(\Yii::$app->request->post())) {
                 $model->username = $user['username'];
