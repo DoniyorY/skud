@@ -23,5 +23,18 @@ return [
     'status_class' => [
         0 => 'btn btn-sm btn-success w-100',
         1 => 'btn btn-sm btn-danger w-100',
+    ],
+    'user_role' => [
+        0 => 'Администратор',
+        1 => 'Менеджер',
+        2 => 'Оператор'
+    ],
+    'user_status' => [
+        10 => 'Активный',
+        9 => 'Отключённый',
+    ],
+    'user_status_class' => [
+        10 => 'table-success w-100',
+        9 => 'table-danger w-100',
     ]
 ];

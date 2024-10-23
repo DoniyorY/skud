@@ -40,11 +40,36 @@ class UserController extends Controller
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
+        if ($this->request->isPost) {
+            $model = new User();
+            $user = $_POST['User'];
+            if ($model->load(\Yii::$app->request->post())) {
+                $model->username = $user['username'];
+                $model->email = $user['username'] . '@email.com';
+                $model->company_id = $user['company_id'];
+                $model->created_at = time();
+                $model->updated_at = time();
+                $model->generateAuthKey();
+                $model->setPassword($model->password_hash);
+                $model->status = User::STATUS_ACTIVE;
+                $model->generateEmailVerificationToken();
+                $model->save(false);
+                return $this->redirect(['index']);
+            }
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionStatus($id, $status)
+    {
+        $model = $this->findModel($id);
+        $model->status = $status;
+        $model->updated_at = time();
+        $model->update(false);
+        return $this->redirect(['index']);
     }
 
     /**

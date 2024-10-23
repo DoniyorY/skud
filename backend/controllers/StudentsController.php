@@ -125,7 +125,7 @@ class StudentsController extends Controller
                 $model->save();
             }
         }
-        return $this->redirect(['view', 'id' => $model->student_id]);
+    return $this->redirect(['view', 'id' => $model->student_id]);
     }
 
     /**
